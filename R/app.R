@@ -32,13 +32,13 @@ source(paste(homeDir, '/plot_download_module.R', sep = ""))
 source(paste(homeDir, '/configurePlotCol_module.R', sep = ""))
 
 # Load available gene sets from Data 
-gene.set.databases = list.files(path = paste(homeDir, "/../Data/GeneSetDBs/", sep = ""), pattern = ".gmt", full.names = TRUE)
-names(gene.set.databases) <- list.files(path = paste(homeDir, "/../Data/GeneSetDBs/", sep = ""), pattern = ".gmt")
+gene.set.databases = list.files(path = paste(homeDir, "/Data/GeneSetDBs/", sep = ""), pattern = ".gmt", full.names = TRUE)
+names(gene.set.databases) <- list.files(path = paste(homeDir, "/Data/GeneSetDBs/", sep = ""), pattern = ".gmt")
 
 #Change for multi-user implementation
 #sessionID = paste( "EnrichmentScores_User", idmaker(1), sep = "")
 #dir.create(sessionID) # flush directory when session ends
-sessionID = paste(homeDir,"/../Data/EnrichmentScores_User", sep = "")
+sessionID = paste(homeDir,"/Data/EnrichmentScores_User", sep = "")
 
 
 ui <- shiny::fluidPage( 
@@ -59,7 +59,7 @@ ui <- shiny::fluidPage(
                                   #                 title = 'Select demo proteinGroups file', 
                                   #                 multiple=FALSE)
                                    fileInput('file1',
-                                             'ProteinGroups.txt',
+                                             'ProteinGroups.txt (github.com/Millchmaedchen/Eatomics/blob/master/Data/proteinGroups.txt)',
                                              accept=c('text/csv',
                                                       'text/comma-separated-values,text/plain',
                                                       '.csv'))
@@ -91,7 +91,7 @@ ui <- shiny::fluidPage(
 
                           tags$div(title="Load the sample description file",
                                            fileInput('ClinD',
-                                                     'ClinicalData.txt',
+                                                     'ClinicalData.txt (github.com/Millchmaedchen/Eatomics/blob/master/Data/SampleAnnotation.txt)',
                                                      accept = c('text/csv',
                                                                 'text/comma-separated-values,text/plain',
                                                                 '.csv',
@@ -178,7 +178,7 @@ ui <- shiny::fluidPage(
                       ),            
                       hr(),
                       div(class = "footer", style="text-align:center", "Impressum",
-                          shiny::includeHTML(paste(homeDir, "/../Impressum.html", sep = ""))
+                          shiny::includeHTML(paste(homeDir, "/Impressum.html", sep = ""))
                       )
              ),
              shiny::tabPanel(title = "Differential Abundance",
@@ -255,7 +255,7 @@ ui <- shiny::fluidPage(
                       ),            
                       hr(),
                       div(class = "footer", style="text-align:center", "Impressum",
-                          shiny::includeHTML(paste(homeDir, "/../Impressum.html", sep = ""))
+                          shiny::includeHTML(paste(homeDir, "/Impressum.html", sep = ""))
                       )
                       
              ),
@@ -327,7 +327,7 @@ ui <- shiny::fluidPage(
                       ),            
                       hr(),
                       div(class = "footer", style="text-align:center", "Impressum",
-                          shiny::includeHTML(paste(homeDir, "/../Impressum.html", sep = ""))
+                          shiny::includeHTML(paste(homeDir, "/Impressum.html", sep = ""))
                       )
              ), 
              
@@ -336,14 +336,14 @@ ui <- shiny::fluidPage(
                       expDesignModule_UI(id = "gsea"),            
                       hr(),
                       div(class = "footer", style="text-align:center", "Impressum",
-                          shiny::includeHTML(paste(homeDir, "/../Impressum.html", sep = ""))
+                          shiny::includeHTML(paste(homeDir, "/Impressum.html", sep = ""))
                       )
                  ),
             shiny::tabPanel("Help",icon = icon("info-circle"),
-                      shiny::includeHTML(paste(homeDir, "/../Vignette/Test2.html", sep = "")),            
+                      shiny::includeHTML(paste(homeDir, "/Vignette/Test2.html", sep = "")),            
                       hr(),
                       div(class = "footer", style="text-align:center", "Impressum",
-                          shiny::includeHTML(paste(homeDir, "/../Impressum.html", sep = ""))
+                          shiny::includeHTML(paste(homeDir, "/Impressum.html", sep = ""))
                       )
              )
   )
@@ -361,9 +361,9 @@ server <- function(input, output, session) {
   ###1 Load n Prep tab  
   
   #read .csv uploaded file  
-  volumes <-c(root = paste(homeDir, '/../Data', sep = ""))
-  shinyFiles::shinyFileChoose(input, 'files', root=c(root='./../Data'), filetypes=c('', 'txt')) 
-  shinyFiles::shinyFileChoose(input, 'demo_clin_data', root=c(root='./../Data'), filetypes=c('', 'txt')) 
+  volumes <-c(root = paste(homeDir, '/Data', sep = ""))
+  shinyFiles::shinyFileChoose(input, 'files', root=c(root='./Data'), filetypes=c('', 'txt')) 
+  shinyFiles::shinyFileChoose(input, 'demo_clin_data', root=c(root='./Data'), filetypes=c('', 'txt')) 
   
   data <- shiny::reactive({
    # if (input$dataUpload == 'userFile'){
@@ -960,8 +960,8 @@ server <- function(input, output, session) {
   # Logic elements
   ## Load clinical parameters
   
-  volumes2 <-c(root = paste(homeDir, '/../Data', sep = ""))
-  shinyFiles::shinyFileChoose(input, 'ClinDs', root=c(root='./../Data'), filetypes=c('', 'txt', 'tsv'))
+  volumes2 <-c(root = paste(homeDir, '/Data', sep = ""))
+  shinyFiles::shinyFileChoose(input, 'ClinDs', root=c(root='./Data'), filetypes=c('', 'txt', 'tsv'))
   
   ClinData <- shiny::reactive({
     
